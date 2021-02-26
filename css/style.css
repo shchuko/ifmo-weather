@@ -1,0 +1,242 @@
+body {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+    font-family: sans-serif;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: normal;
+    margin: 0;
+    color: grey;
+    font-size: 2rem;
+}
+
+h2 {
+    font-weight: normal;
+    margin: 0;
+    color: grey;
+    font-size: 2rem;
+}
+
+#refresh-location {
+    margin: 0 auto;
+    width: 60%;
+    font-size: 1em;
+    color: grey;
+    background-color: gainsboro;
+    border: none;
+    border-radius: 5px;
+}
+
+#main-city-name {
+    font-size: 3em;
+}
+
+.weather-icon {
+    width: 35px;
+    height: 35px;
+}
+
+#main-weather-icon {
+    width: 6rem;
+    height: 6rem;
+}
+
+#favourites {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+#add-city {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#add-city-input {
+    width: 250px;
+    border-radius: 3px;
+    border-width: 0;
+    background-color: gainsboro;
+    color: grey;
+    padding-left: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#fav-cities {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.fav-city {
+    width: 45%;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.city-name {
+    font-weight: bold;
+    font-size: 2em;
+    margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+    color: dimgrey;
+}
+
+.extended-info-li {
+    background-color: darkgrey;
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-type {
+    font-weight: bold;
+}
+
+.btn-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    border-width: 0;
+    background-color: grey;
+    margin: auto 0 auto 10px;
+    padding: 1px 0 0 0;
+    color: white;
+    font-size: 20px;
+}
+
+.temperature {
+    font-size: 2em;
+    margin: 5px;
+    color: grey;
+}
+
+#main-city-minimal-info {
+    width: 45%;
+}
+
+#main-city-temperature {
+    font-size: 5em;
+}
+
+#main-city {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+#main-city .extended-info {
+    width: 45%;
+}
+
+.minimal-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-icon-temp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.extended-info {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+    html {
+        font-size: 1.3vw;
+    }
+
+    body {
+        width: unset;
+        padding: 5rem 5rem 0 5rem;
+        font-size: 2rem;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    header {
+        grid-template-columns: 1fr 1fr;
+    }
+    #refresh-location {
+        font-size: 0;
+        background-image: url("../resources/refresh.png");
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: white;
+    }
+
+    #main-city {
+        flex-wrap: wrap;
+    }
+
+    #main-city .extended-info {
+        width: 100%;
+    }
+
+    #favourites {
+        grid-template-columns: 2fr;
+    }
+
+    #add-city {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #add-city-input {
+        width: 85%;
+        height: 5rem;
+        border-radius: 0.5rem;
+        border-width: 0;
+        background-color: rgb(240, 240, 240);
+        color: rgb(115, 130, 135);
+        font-size: 2rem;
+        padding-left: 1.5rem;
+    }
+
+    .minimal-info {
+        width: 100%;
+    }
+
+    .fav-city {
+        width: 100%;
+        margin: 2rem 0 2rem 0;
+    }
+}
+
+
+
+
+
+
+
