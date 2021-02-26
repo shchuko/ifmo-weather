@@ -186,6 +186,7 @@ ul {
     header {
         grid-template-columns: 1fr 1fr;
     }
+
     #refresh-location {
         font-size: 0;
         background-image: url("../resources/refresh.png");
@@ -193,6 +194,9 @@ ul {
         background-position: center center;
         background-repeat: no-repeat;
         background-color: white;
+
+        width: 6rem;
+        height: 6rem;
     }
 
     #main-city {
