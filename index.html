@@ -2,9 +2,216 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ITMO-Weather</title>
 </head>
+
 <body>
-Hello
+<header>
+    <h1>Weather here</h1>
+    <button class="refresh-location">Refresh location</button>
+</header>
+<main>
+    <section class="main-city">
+        <span class="main-city-name">Saint Petersburg</span>
+        <div class="minimal-info">
+            <img class="weather-icon"
+                 id="main-weather-icon"
+                 src="resources/weather-icon.png"
+                 alt="Weather icon">
+            <span class="temperature" id="main-city-temperature">10°C</span>
+        </div>
+        <ul class="extended-info">
+            <li class="extended-info-list">
+                <span class="info-type">Wind</span>
+                <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+            </li>
+            <li class="extended-info-list">
+                <span class="info-type">Cloudiness</span>
+                <span class="info-value">Broken clouds</span>
+            </li>
+            <li class="extended-info-list">
+                <span class="info-type">Pressure</span>
+                <span class="info-value">1020hPa</span>
+            </li>
+            <li class="extended-info-list">
+                <span class="info-type">Humidity</span>
+                <span class="info-value">43%</span>
+            </li>
+            <li class="extended-info-list">
+                <span class="info-type">Location</span>
+                <span class="info-value">[00.00, 00.00]</span>
+            </li>
+        </ul>
+    </section>
+    <section class="favourites">
+        <h2>Favourites</h2>
+        <label>
+            <input id="add-city-input">
+        </label>
+        <button class="btn-circle btn-add">+</button>
+    </section>
+    <ul class="fav-cities">
+        <li class="fav-city">
+            <span class="fav-city-name">Moscow</span>
+            <div class="minimal-info">
+                <img class="weather-icon"
+                     src="resources/weather-icon.png"
+                     alt="Weather icon">
+                <span class="temperature">10°C</span>
+                <button class="btn-circle btn-remove">x</button>
+            </div>
+            <ul class="extended-info">
+                <li class="extended-info-list">
+                    <span class="info-type">Wind</span>
+                    <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Cloudiness</span>
+                    <span class="info-value">Broken clouds</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Pressure</span>
+                    <span class="info-value">1020hPa</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Humidity</span>
+                    <span class="info-value">43%</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Location</span>
+                    <span class="info-value">[00.00, 00.00]</span>
+                </li>
+            </ul>
+        </li>
+        <li class="fav-city">
+            <span class="fav-city-name">Helsinki</span>
+            <div class="minimal-info">
+                <img class="weather-icon"
+                     src="resources/weather-icon.png"
+                     alt="Weather icon">
+                <span class="temperature">10°C</span>
+                <button class="btn-circle btn-remove">x</button>
+            </div>
+            <ul class="extended-info">
+                <li class="extended-info-list">
+                    <span class="info-type">Wind</span>
+                    <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Cloudiness</span>
+                    <span class="info-value">Broken clouds</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Pressure</span>
+                    <span class="info-value">1020hPa</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Humidity</span>
+                    <span class="info-value">43%</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Location</span>
+                    <span class="info-value">[00.00, 00.00]</span>
+                </li>
+            </ul>
+        </li>
+        <li class="fav-city">
+            <span class="fav-city-name">Voronezh</span>
+            <div class="minimal-info">
+                <img class="weather-icon"
+                     src="resources/weather-icon.png"
+                     alt="Weather icon">
+                <span class="temperature">10°C</span>
+                <button class="btn-circle btn-remove">x</button>
+            </div>
+            <ul class="extended-info">
+                <li class="extended-info-list">
+                    <span class="info-type">Wind</span>
+                    <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Cloudiness</span>
+                    <span class="info-value">Broken clouds</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Pressure</span>
+                    <span class="info-value">1020hPa</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Humidity</span>
+                    <span class="info-value">43%</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Location</span>
+                    <span class="info-value">[00.00, 00.00]</span>
+                </li>
+            </ul>
+        </li>
+        <li class="fav-city">
+            <span class="fav-city-name">Murmansk</span>
+            <div class="minimal-info">
+                <img class="weather-icon"
+                     src="resources/weather-icon.png"
+                     alt="Weather icon">
+                <span class="temperature">10°C</span>
+                <button class="btn-circle btn-remove">x</button>
+            </div>
+            <ul class="extended-info">
+                <li class="extended-info-list">
+                    <span class="info-type">Wind</span>
+                    <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Cloudiness</span>
+                    <span class="info-value">Broken clouds</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Pressure</span>
+                    <span class="info-value">1020hPa</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Humidity</span>
+                    <span class="info-value">43%</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Location</span>
+                    <span class="info-value">[00.00, 00.00]</span>
+                </li>
+            </ul>
+        </li>
+        <li class="fav-city">
+            <span class="fav-city-name">Simferopol</span>
+            <div class="minimal-info">
+                <img class="weather-icon"
+                     src="resources/weather-icon.png"
+                     alt="Weather icon">
+                <span class="temperature">10°C</span>
+                <button class="btn-circle btn-remove">x</button>
+            </div>
+            <ul class="extended-info">
+                <li class="extended-info-list">
+                    <span class="info-type">Wind</span>
+                    <span class="info-value">Moderate breeze, 6.0 m/s, North-northwest</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Cloudiness</span>
+                    <span class="info-value">Broken clouds</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Pressure</span>
+                    <span class="info-value">1020hPa</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Humidity</span>
+                    <span class="info-value">43%</span>
+                </li>
+                <li class="extended-info-list">
+                    <span class="info-type">Location</span>
+                    <span class="info-value">[00.00, 00.00]</span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</main>
 </body>
 </html>
