@@ -86,13 +86,12 @@ ul {
 
 #fav-cities {
     font-family: sans-serif;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .fav-city {
-    width: 45%;
+    width: 95%;
     margin-top: 10px;
     margin-bottom: 25px;
 }
@@ -231,6 +230,10 @@ ul {
 
     .minimal-info {
         width: 100%;
+    }
+
+    #fav-cities {
+        grid-template-columns: 1fr;
     }
 
     .fav-city {
