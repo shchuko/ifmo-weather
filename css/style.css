@@ -167,7 +167,7 @@ ul {
 
 @media only screen and (max-width: 1200px) {
     html {
-        font-size: 1.3vw;
+        font-size: 1.5vmin;
     }
 
     body {
