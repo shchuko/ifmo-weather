@@ -101,7 +101,7 @@ ul {
 .extended-info-li {
     background-color: darkgrey;
     margin: 5px 0 5px 0;
-    padding: 5px;
+    padding: 10px;
     color: white;
     display: flex;
     justify-content: space-between;
