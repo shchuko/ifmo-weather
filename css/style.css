@@ -128,22 +128,18 @@ ul {
     color: grey;
 }
 
-#main-city-minimal-info {
-    width: 45%;
-}
-
 #main-city-temperature {
     font-size: 5em;
 }
 
 #main-city {
     font-family: sans-serif;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-#main-city .extended-info {
-    width: 45%;
+#main-city-minimal-info {
+    width: 90%;
 }
 
 .minimal-info {
@@ -200,11 +196,18 @@ ul {
     }
 
     #main-city {
-        flex-wrap: wrap;
+        font-family: sans-serif;
+        display: grid;
+        grid-template-columns: 1fr;
     }
 
-    #main-city .extended-info {
+    #main-city-minimal-info {
         width: 100%;
+    }
+
+    #main-weather-icon {
+        width: 10rem;
+        height: 10rem;
     }
 
     #favourites {
