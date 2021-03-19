@@ -71,6 +71,9 @@ function mainCityFillFromDefault() {
 }
 
 function refreshLocationListener() {
+  document.getElementById('main-city').innerHTML = createMainCityHtml(
+      CityInfo.buildEmpty(defaultCityName));
+
   navigator.geolocation.getCurrentPosition(mainCityFillFromCurrent,
       mainCityFillFromDefault);
 }

@@ -6,8 +6,6 @@ function removeFromList(list, cityName) {
 }
 
 window.onload = () => {
-  document.getElementById('main-city').innerHTML = createMainCityHtml(
-      CityInfo.buildEmpty(defaultCityName));
   refreshLocationListener();
 
   favorites = loadStoredFavorites()
