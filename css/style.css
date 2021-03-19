@@ -88,10 +88,10 @@ ul {
     font-family: sans-serif;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 30px
 }
 
 .fav-city {
-    width: 95%;
     margin-top: 10px;
     margin-bottom: 25px;
 }
@@ -136,10 +136,11 @@ ul {
     font-family: sans-serif;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
 }
 
 #main-city-minimal-info {
-    width: 90%;
+
 }
 
 .minimal-info {
