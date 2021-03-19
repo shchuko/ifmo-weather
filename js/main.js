@@ -6,10 +6,9 @@ function removeFromList(list, cityName) {
 }
 
 window.onload = () => {
-  refreshLocationListener();
-
   favorites = loadStoredFavorites()
   displayedFavorites = []
-
   favorites.forEach(cityName => addFavCity(cityName, console.log));
+
+  refreshLocationListener();
 }
