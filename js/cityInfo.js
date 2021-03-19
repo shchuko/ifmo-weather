@@ -15,7 +15,7 @@ class CityInfo {
 
     city.name = response.name;
     city.temperature = Math.round(response.main.temp);
-    city.iconSrc = `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`
+    city.iconSrc = `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`;
     city.windSpeed = response.wind.speed;
     city.windDirection = CityInfo.#convertWindDirection(response.wind.deg);
     // Set to Upper first character of 'cloudiness'
@@ -34,7 +34,7 @@ class CityInfo {
 
     city.name = cityName;
     city.temperature = "-";
-    city.iconSrc = `resources/refresh.png`
+    city.iconSrc = `resources/refresh.png`;
     city.windSpeed = "-";
     city.windDirection = "-";
     city.cloudiness = "-";

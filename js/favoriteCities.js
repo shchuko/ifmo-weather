@@ -1,21 +1,21 @@
-let displayedFavorites = []
-let displayedFavsLoading = []
+let displayedFavorites = [];
+let displayedFavsLoading = [];
 
 function isCityDisplayed(cityName) {
-  return displayedFavorites.includes(cityName)
+  return displayedFavorites.includes(cityName);
 }
 
 function isCityDisplayedLoading(cityName) {
-  return displayedFavsLoading.includes(cityName)
+  return displayedFavsLoading.includes(cityName);
 }
 
 function saveCityToFavorites(cityName) {
   if (isCityInFavorites(cityName)) {
-    return
+    return;
   }
 
-  favorites.push(cityName)
-  updateLocalStorage()
+  favorites.push(cityName);
+  updateLocalStorage();
 }
 
 function createFavoriteCityHtml(cityInfo) {
@@ -57,7 +57,7 @@ function addFavCityListItem(cityName, innerHtml) {
   favCityListItem.innerHTML = innerHtml;
 
   document.getElementById('fav-cities').prepend(favCityListItem);
-  displayedFavsLoading.push(cityName)
+  displayedFavsLoading.push(cityName);
   return favCityListItem;
 }
 
@@ -80,36 +80,36 @@ function addFavCity(requestCityName, messageFunc) {
     innerHtml = createFavoriteCityHtml(cityInfo);
     // Double-check for case when name from response != name from request
     if (isCityDisplayed(cityInfo.name)) {
-      removeFromList(displayedFavsLoading, requestCityName)
+      removeFromList(displayedFavsLoading, requestCityName);
       favCityListItem.remove();
     } else {
       updateFavCityListItem(favCityListItem, innerHtml);
       saveCityToFavorites(cityInfo.name);
 
-      removeFromList(displayedFavsLoading, requestCityName)
-      displayedFavorites.push(cityInfo.name)
+      removeFromList(displayedFavsLoading, requestCityName);
+      displayedFavorites.push(cityInfo.name);
     }
-  }
+  };
 
   let onFail = () => {
     favCityListItem.remove();
     removeFromList(displayedFavsLoading, requestCityName);
-    messageFunc(`'${requestCityName}' adding error!`)
-  }
+    messageFunc(`'${requestCityName}' adding error!`);
+  };
   safeRequestWeatherInfoFromName(requestCityName, onSuccess, onFail);
 }
 
 function addFavCityListener() {
   const input = document.getElementById('add-city-input');
   const value = input.value.trim();
-  input.value = ''
+  input.value = '';
   if (value !== '') {
     addFavCity(value, alert);
   }
 }
 
 function removeFavCityListener(cityName, listElement) {
-  listElement.remove()
+  listElement.remove();
   removeFromList(favorites, cityName);
   removeFromList(displayedFavorites, cityName);
   updateLocalStorage();

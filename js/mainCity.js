@@ -32,7 +32,7 @@ function createMainCityHtml(cityInfo) {
                 <span class="info-type">Location</span>
                 <span class="info-value">[${cityInfo.locationLat}, ${cityInfo.locationLon}]</span>
             </li>
-        </ul>`
+        </ul>`;
 }
 
 function mainCityFillFromCurrent(pos) {
@@ -42,28 +42,28 @@ function mainCityFillFromCurrent(pos) {
   let onSuccess = (response) => {
     document.getElementById('main-city').innerHTML = createMainCityHtml(
         CityInfo.buildFromResponse(response));
-  }
+  };
 
   let onFail = () => {
     mainCityFillFromDefault();
-  }
+  };
 
   safeRequestWeatherInfoFromLocation(lat, lon, onSuccess, onFail);
 }
 
 function mainCityFillFromDefault() {
-  alert("Location retrieval error, using default")
+  alert("Location retrieval error, using default");
 
   let onSuccess = (response) => {
     document.getElementById('main-city').innerHTML = createMainCityHtml(
         CityInfo.buildFromResponse(response));
-  }
+  };
 
   let onFail = () => {
     alert("Fatal error, leaving main city empty");
     document.getElementById('main-city').innerHTML = createMainCityHtml(
         CityInfo.buildEmpty(defaultCityName));
-  }
+  };
 
   safeRequestWeatherInfoFromName(defaultCityName, onSuccess, onFail);
 }

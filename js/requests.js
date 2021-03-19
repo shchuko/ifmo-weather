@@ -14,17 +14,17 @@ function safeRequestWeatherInfo(requestSuffix, responseHandler, onFail) {
   .then(response => {
     response.json().then(json => {
       if (json.cod !== 200) {
-        console.log('Request unsuccessful, return code != 200')
-        onFail()
+        console.log('Request unsuccessful, return code != 200');
+        onFail();
       } else {
-        responseHandler(json)
+        responseHandler(json);
       }
-    })
+    });
   })
   .catch((err) => {
-    onFail()
+    onFail();
     console.log(err);
-  })
+  });
 }
 
 function safeRequestWeatherInfoFromName(cityName, responseHandler, onFail) {
