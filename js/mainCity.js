@@ -38,7 +38,6 @@ function createMainCityHtml(cityInfo) {
 function mainCityFillFromCurrent(pos) {
   const lat = pos.coords.latitude;
   const lon = pos.coords.longitude;
-  const reqSuffix = `lat=${lat}&lon=${lon}`;
 
   let onSuccess = (response) => {
     document.getElementById('main-city').innerHTML = createMainCityHtml(
@@ -49,12 +48,11 @@ function mainCityFillFromCurrent(pos) {
     mainCityFillFromDefault();
   }
 
-  safeRequestWeatherInfo(reqSuffix, onSuccess, onFail);
+  safeRequestWeatherInfoFromLocation(lat, lon, onSuccess, onFail);
 }
 
 function mainCityFillFromDefault() {
   alert("Location retrieval error, using default")
-  const reqSuffix = `q=${defaultCityName}`;
 
   let onSuccess = (response) => {
     document.getElementById('main-city').innerHTML = createMainCityHtml(
@@ -67,7 +65,7 @@ function mainCityFillFromDefault() {
         CityInfo.buildEmpty(defaultCityName));
   }
 
-  safeRequestWeatherInfo(reqSuffix, onSuccess, onFail);
+  safeRequestWeatherInfoFromName(defaultCityName, onSuccess, onFail);
 }
 
 function refreshLocationListener() {

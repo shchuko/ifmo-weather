@@ -26,3 +26,11 @@ function safeRequestWeatherInfo(requestSuffix, responseHandler, onFail) {
     console.log(err);
   })
 }
+
+function safeRequestWeatherInfoFromName(cityName, responseHandler, onFail) {
+  safeRequestWeatherInfo(`q=${cityName}`, responseHandler, onFail);
+}
+
+function safeRequestWeatherInfoFromLocation(lat, lon, responseHandler, onFail) {
+  safeRequestWeatherInfo(`lat=${lat}&lon=${lon}`, responseHandler, onFail);
+}

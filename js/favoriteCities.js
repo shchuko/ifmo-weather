@@ -96,8 +96,7 @@ function addFavCity(requestCityName, messageFunc) {
     removeFromList(displayedFavsLoading, requestCityName);
     messageFunc(`'${requestCityName}' adding error!`)
   }
-  safeRequestWeatherInfo(`q=${requestCityName}`, onSuccess, onFail)
-
+  safeRequestWeatherInfoFromName(requestCityName, onSuccess, onFail);
 }
 
 function addFavCityListener() {
