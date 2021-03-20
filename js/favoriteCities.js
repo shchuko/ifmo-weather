@@ -73,12 +73,13 @@ function addFavCity(requestCityName, messageFunc) {
     }
   };
 
-  let onFail = () => {
+  let onFail = (e) => {
+    console.log(e)
     listItem.remove();
     removeFromList(displayedFavsLoading, requestCityName);
     messageFunc(`'${requestCityName}' adding error!`);
   };
-  safeRequestWeatherInfoFromName(requestCityName, onSuccess, onFail);
+  requestWeatherInfoFromName(requestCityName).then(onSuccess).catch(onFail);
 }
 
 function addFavCityListener() {

@@ -35,11 +35,12 @@ function mainCityFillFromCurrent(pos) {
     updateMainCityHtmlAutoLocation(CityInfo.buildFromResponse(response));
   };
 
-  let onFail = () => {
+  let onFail = (e) => {
+    console.log(e);
     mainCityFillFromDefault();
   };
 
-  safeRequestWeatherInfoFromLocation(lat, lon, onSuccess, onFail);
+  requestWeatherInfoFromLocation(lat, lon).then(onSuccess).catch(onFail);
 }
 
 function mainCityFillFromDefault() {
@@ -47,11 +48,12 @@ function mainCityFillFromDefault() {
     updateMainCityHtmlDefaultLocation(CityInfo.buildFromResponse(response));
   };
 
-  let onFail = () => {
+  let onFail = (e) => {
+    console.log(e);
     updateMainCityHtmlEmpty();
   };
 
-  safeRequestWeatherInfoFromName(defaultCityName, onSuccess, onFail);
+  requestWeatherInfoFromName(defaultCityName).then(onSuccess).catch(onFail)
 }
 
 function refreshLocationListener() {
