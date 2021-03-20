@@ -10,6 +10,10 @@ class CityInfo {
   locationLat;
   locationLon;
 
+  getMetricHtml() {
+    return new CityInfoMetricHtml(this);
+  }
+
   static buildFromResponse(response) {
     let city = new CityInfo();
 
@@ -72,5 +76,33 @@ class CityInfo {
       return 'NE';
     }
     return 'N';
+  }
+}
+
+class CityInfoHtml {
+  nameHtml;
+  temperatureHtml;
+  windHtml;
+  cloudinessHtml;
+  pressureHtml;
+  humidityHtml;
+  locationHtml;
+  locationLon;
+
+  constructor() {
+
+  }
+}
+
+class CityInfoMetricHtml extends CityInfoHtml {
+  constructor(cityInfo) {
+    super();
+    this.nameHtml = cityInfo.name;
+    this.temperatureHtml = `${cityInfo.temperature}&#176;C`;
+    this.windHtml = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
+    this.cloudinessHtml = cityInfo.cloudiness;
+    this.pressureHtml = `${cityInfo.pressure}hPa`;
+    this.humidityHtml = `${cityInfo.humidity}%`;
+    this.locationHtml = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
   }
 }

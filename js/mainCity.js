@@ -2,15 +2,17 @@ const defaultCityName = 'Helsinki';
 
 function updateMainCityHtml(cityInfo, headerText) {
   const getElem = (elem) => document.getElementById(elem);
+  const metricHtml = cityInfo.getMetricHtml();
+
   getElem('main-header').innerText = headerText;
-  getElem('main-city-name').innerHTML = cityInfo.name;
+  getElem('main-city-name').innerHTML = metricHtml.nameHtml;
   getElem('main-weather-icon').src = cityInfo.iconSrc;
-  getElem('main-city-temperature').innerHTML = `${cityInfo.temperature}&#176;C`;
-  getElem('main-city-wind').innerHTML = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
-  getElem('main-city-clouds').innerHTML = cityInfo.cloudiness;
-  getElem('main-city-pressure').innerHTML = `${cityInfo.pressure}hPa`;
-  getElem('main-city-humidity').innerHTML = `${cityInfo.humidity}%`;
-  getElem('main-city-loc').innerHTML = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
+  getElem('main-city-temperature').innerHTML = metricHtml.temperatureHtml;
+  getElem('main-city-wind').innerHTML = metricHtml.windHtml;
+  getElem('main-city-clouds').innerHTML = metricHtml.cloudinessHtml;
+  getElem('main-city-pressure').innerHTML = metricHtml.pressureHtml;
+  getElem('main-city-humidity').innerHTML = metricHtml.humidityHtml;
+  getElem('main-city-loc').innerHTML = metricHtml.locationHtml;
 }
 
 function updateMainCityHtmlEmpty() {

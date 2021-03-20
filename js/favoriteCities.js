@@ -20,19 +20,18 @@ function saveCityToFavorites(cityName) {
 
 function fillFavCityListItem(listItem, cityInfo) {
   const getField = (tag) => listItem.querySelectorAll(tag)[0];
+  const metricHtml = cityInfo.getMetricHtml();
 
-  getField('h3').innerText = cityInfo.name;
-  getField('.temperature').innerHTML = `${cityInfo.temperature}&#176;C`;
+  getField('h3').innerText = metricHtml.nameHtml;
+  getField('.temperature').innerHTML = metricHtml.temperatureHtml;
   getField('.weather-icon').src = cityInfo.iconSrc;
   getField('.btn-remove').addEventListener('click',
       () => removeFavCityListener(cityInfo.name, listItem));
-  getField(
-      '.info-value.wind').innerHTML = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
-  getField('.info-value.cloudiness').innerHTML = cityInfo.cloudiness;
-  getField('.info-value.pressure').innerHTML = `${cityInfo.pressure}hPa`;
-  getField('.info-value.humidity').innerHTML = `${cityInfo.humidity}%`;
-  getField(
-      '.info-value.location').innerHTML = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
+  getField('.info-value.wind').innerHTML = metricHtml.windHtml;
+  getField('.info-value.cloudiness').innerHTML = metricHtml.cloudinessHtml;
+  getField('.info-value.pressure').innerHTML = metricHtml.pressureHtml;
+  getField('.info-value.humidity').innerHTML = metricHtml.humidityHtml;
+  getField('.info-value.location').innerHTML = metricHtml.locationHtml;
 }
 
 function createFavCityListItem(cityName, cityInfo) {
