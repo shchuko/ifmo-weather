@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ITMO-Weather</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/main.js"></script>
-    <script src="js/cityInfo.js"></script>
-    <script src="js/requests.js"></script>
-    <script src="js/localStorageFavorites.js"></script>
-    <script src="js/favoriteCities.js"></script>
-    <script src="js/mainCity.js"></script>
+  <meta charset="UTF-8">
+  <title>ITMO-Weather</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
+  <script src="js/cityInfo.js"></script>
+  <script src="js/requests.js"></script>
+  <script src="js/localStorageFavorites.js"></script>
+  <script src="js/favoriteCities.js"></script>
+  <script src="js/mainCity.js"></script>
 </head>
 
 <body>
 <header>
-    <h1 id="main-header">Weather here</h1>
-    <button id="refresh-location" onclick="refreshLocationListener()">Refresh location</button>
+  <h1 id="main-header">Weather here</h1>
+  <button id="refresh-location" onclick="refreshLocationListener()">Refresh location</button>
 </header>
 <main>
-    <section id="main-city">
-
-    </section>
-    <section id="favourites">
-        <h2 id="fav-header">Favourites</h2>
-        <div id="add-city">
-            <label for="add-city-input"></label><input id="add-city-input" placeholder="Add a new city">
-            <button class="btn-circle btn-add" onclick="addFavCityListener()">+</button>
-        </div>
-    </section>
-    <ul id="fav-cities">
+  <section id="main-city">
+    <div id="main-city-minimal-info">
+      <h3 id="main-city-name"></h3>
+      <div class="weather-icon-temp">
+        <img class="weather-icon"
+             id="main-weather-icon"
+             src="resources/refresh.png"
+             alt="Weather icon">
+        <span class="temperature" id="main-city-temperature"></span>
+      </div>
+    </div>
+    <ul class="extended-info">
+      <li class="extended-info-li">
+        <span class="info-type">Wind</span>
+        <span class="info-value" id="main-city-wind"></span>
+      </li>
+      <li class="extended-info-li">
+        <span class="info-type">Cloudiness</span>
+        <span class="info-value" id="main-city-clouds"></span>
+      </li>
+      <li class="extended-info-li">
+        <span class="info-type">Pressure</span>
+        <span class="info-value" id="main-city-pressure"></span>
+      </li>
+      <li class="extended-info-li">
+        <span class="info-type">Humidity</span>
+        <span class="info-value" id="main-city-humidity"></span>
+      </li>
+      <li class="extended-info-li">
+        <span class="info-type">Location</span>
+        <span class="info-value" id="main-city-loc"></span>
+      </li>
     </ul>
+  </section>
+  <section id="favourites">
+    <h2 id="fav-header">Favourites</h2>
+    <div id="add-city">
+      <label for="add-city-input"></label><input id="add-city-input" placeholder="Add a new city">
+      <button class="btn-circle btn-add" onclick="addFavCityListener()">+</button>
+    </div>
+  </section>
+  <ul id="fav-cities">
+  </ul>
 </main>
 </body>
 </html>
