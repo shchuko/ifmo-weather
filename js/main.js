@@ -9,6 +9,6 @@ window.onload = () => {
   favorites = loadStoredFavorites();
   displayedFavorites = [];
   favorites.forEach(cityName => addFavCity(cityName, console.log));
-
+  addFavCityKeyPressListener();
   refreshLocationListener();
 };

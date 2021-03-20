@@ -108,6 +108,15 @@ function addFavCityListener() {
   }
 }
 
+function addFavCityKeyPressListener() {
+  document.getElementById('add-city-input').addEventListener('keypress',
+      function (e) {
+        if (e.key === 'Enter') {
+          addFavCityListener();
+        }
+      });
+}
+
 function removeFavCityListener(cityName, listElement) {
   listElement.remove();
   removeFromList(favorites, cityName);
