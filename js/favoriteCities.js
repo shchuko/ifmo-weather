@@ -18,51 +18,36 @@ function saveCityToFavorites(cityName) {
   updateLocalStorage();
 }
 
-function createFavoriteCityHtml(cityInfo) {
-  return `<div class="minimal-info">
-                <h3>${cityInfo.name}</h3>
-                <span class="temperature">${cityInfo.temperature}&#176;C</span>
-                <img class="weather-icon"
-                     src="${cityInfo.iconSrc}"
-                     alt="Weather icon">
-                <button class="btn-circle btn-remove" onclick="removeFavCityListener('${cityInfo.name}', this.parentElement.parentElement)">X</button>
-            </div>
-            <ul class="extended-info">
-                <li class="extended-info-li">
-                    <span class="info-type">Wind</span>
-                    <span class="info-value">${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}</span>
-                </li>
-                <li class="extended-info-li">
-                    <span class="info-type">Cloudiness</span>
-                    <span class="info-value">${cityInfo.cloudiness}</span>
-                </li>
-                <li class="extended-info-li">
-                    <span class="info-type">Pressure</span>
-                    <span class="info-value">${cityInfo.pressure}hPa</span>
-                </li>
-                <li class="extended-info-li">
-                    <span class="info-type">Humidity</span>
-                    <span class="info-value">${cityInfo.humidity}%</span>
-                </li>
-                <li class="extended-info-li">
-                    <span class="info-type">Location</span>
-                    <span class="info-value">[${cityInfo.locationLat}, ${cityInfo.locationLon}]</span>
-                </li>
-            </ul>`;
+function fillFavCityListItem(listItem, cityInfo) {
+  const getField = (tag) => listItem.querySelectorAll(tag)[0];
+
+  getField('h3').innerText = cityInfo.name;
+  getField('.temperature').innerHTML = `${cityInfo.temperature}&#176;C`;
+  getField('.weather-icon').src = cityInfo.iconSrc;
+  getField('.btn-remove').addEventListener('click',
+      () => removeFavCityListener(cityInfo.name, listItem));
+  getField(
+      '.info-value.wind').innerHTML = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
+  getField('.info-value.cloudiness').innerHTML = cityInfo.cloudiness;
+  getField('.info-value.pressure').innerHTML = `${cityInfo.pressure}hPa`;
+  getField('.info-value.humidity').innerHTML = `${cityInfo.humidity}%`;
+  getField(
+      '.info-value.location').innerHTML = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
 }
 
-function addFavCityListItem(cityName, innerHtml) {
-  let favCityListItem = document.createElement("li");
-  favCityListItem.className = 'fav-city';
-  favCityListItem.innerHTML = innerHtml;
+function createFavCityListItem(cityName, cityInfo) {
+  let listItem = document.createElement("li");
+  listItem.className = 'fav-city';
+  listItem.append(
+      document.getElementById('fav-city-template').content.cloneNode(
+          true));
+  fillFavCityListItem(listItem, cityInfo);
+  return listItem;
+}
 
-  document.getElementById('fav-cities').prepend(favCityListItem);
+function insertFavCityListItem(listItem, cityName) {
+  document.getElementById('fav-cities').prepend(listItem);
   displayedFavsLoading.push(cityName);
-  return favCityListItem;
-}
-
-function updateFavCityListItem(item, innerHtml) {
-  item.innerHTML = innerHtml;
 }
 
 function addFavCity(requestCityName, messageFunc) {
@@ -70,20 +55,18 @@ function addFavCity(requestCityName, messageFunc) {
       requestCityName)) {
     return;
   }
-
-  let cityInfo = CityInfo.buildEmpty(requestCityName);
-  let innerHtml = createFavoriteCityHtml(cityInfo);
-  let favCityListItem = addFavCityListItem(requestCityName, innerHtml);
+  let listItem = createFavCityListItem(requestCityName,
+      CityInfo.buildEmpty(requestCityName));
+  insertFavCityListItem(listItem, requestCityName);
 
   let onSuccess = (response) => {
-    cityInfo = CityInfo.buildFromResponse(response);
-    innerHtml = createFavoriteCityHtml(cityInfo);
+    let cityInfo = CityInfo.buildFromResponse(response);
     // Double-check for case when name from response != name from request
     if (isCityDisplayed(cityInfo.name)) {
       removeFromList(displayedFavsLoading, requestCityName);
-      favCityListItem.remove();
+      listItem.remove();
     } else {
-      updateFavCityListItem(favCityListItem, innerHtml);
+      fillFavCityListItem(listItem, cityInfo);
       saveCityToFavorites(cityInfo.name);
 
       removeFromList(displayedFavsLoading, requestCityName);
@@ -92,7 +75,7 @@ function addFavCity(requestCityName, messageFunc) {
   };
 
   let onFail = () => {
-    favCityListItem.remove();
+    listItem.remove();
     removeFromList(displayedFavsLoading, requestCityName);
     messageFunc(`'${requestCityName}' adding error!`);
   };

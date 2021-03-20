@@ -59,8 +59,44 @@
       <button class="btn-circle btn-add" onclick="addFavCityListener()">+</button>
     </div>
   </section>
-  <ul id="fav-cities">
-  </ul>
+  <section id="fav-cities-section">
+    <ul id="fav-cities">
+      <template id="fav-city-template">
+        <div class="minimal-info">
+          <h3></h3>
+          <span class="temperature"></span>
+          <img class="weather-icon"
+               src=""
+               alt="Weather icon">
+          <button class="btn-circle btn-remove">
+            X
+          </button>
+        </div>
+        <ul class="extended-info">
+          <li class="extended-info-li">
+            <span class="info-type">Wind</span>
+            <span class="info-value wind"></span>
+          </li>
+          <li class="extended-info-li">
+            <span class="info-type">Cloudiness</span>
+            <span class="info-value cloudiness"></span>
+          </li>
+          <li class="extended-info-li">
+            <span class="info-type">Pressure</span>
+            <span class="info-value pressure"></span>
+          </li>
+          <li class="extended-info-li">
+            <span class="info-type">Humidity</span>
+            <span class="info-value humidity"></span>
+          </li>
+          <li class="extended-info-li">
+            <span class="info-type">Location</span>
+            <span class="info-value location"></span>
+          </li>
+        </ul>
+      </template>
+    </ul>
+  </section>
 </main>
 </body>
 </html>
