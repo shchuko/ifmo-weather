@@ -1,7 +1,8 @@
 const defaultCityName = 'Helsinki';
 
-function updateMainCityHtml(cityInfo) {
+function updateMainCityHtml(cityInfo, headerText) {
   const getElem = (elem) => document.getElementById(elem);
+  getElem('main-header').innerText = headerText;
   getElem('main-city-name').innerHTML = cityInfo.name;
   getElem('main-weather-icon').src = cityInfo.iconSrc;
   getElem('main-city-temperature').innerHTML = `${cityInfo.temperature}&#176;C`;
@@ -12,12 +13,24 @@ function updateMainCityHtml(cityInfo) {
   getElem('main-city-loc').innerHTML = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
 }
 
+function updateMainCityHtmlEmpty() {
+  updateMainCityHtml(CityInfo.buildEmpty('---'), '---');
+}
+
+function updateMainCityHtmlDefaultLocation(cityInfo) {
+  updateMainCityHtml(cityInfo, 'Default location');
+}
+
+function updateMainCityHtmlAutoLocation(cityInfo) {
+  updateMainCityHtml(cityInfo, 'Weather here');
+}
+
 function mainCityFillFromCurrent(pos) {
   const lat = pos.coords.latitude;
   const lon = pos.coords.longitude;
 
   let onSuccess = (response) => {
-    updateMainCityHtml(CityInfo.buildFromResponse(response));
+    updateMainCityHtmlAutoLocation(CityInfo.buildFromResponse(response));
   };
 
   let onFail = () => {
@@ -28,22 +41,19 @@ function mainCityFillFromCurrent(pos) {
 }
 
 function mainCityFillFromDefault() {
-  alert("Location retrieval error, using default");
-
   let onSuccess = (response) => {
-    updateMainCityHtml(CityInfo.buildFromResponse(response));
+    updateMainCityHtmlDefaultLocation(CityInfo.buildFromResponse(response));
   };
 
   let onFail = () => {
-    alert("Fatal error, leaving main city empty");
-    updateMainCityHtml(CityInfo.buildEmpty(defaultCityName));
+    updateMainCityHtmlEmpty();
   };
 
   safeRequestWeatherInfoFromName(defaultCityName, onSuccess, onFail);
 }
 
 function refreshLocationListener() {
-  updateMainCityHtml(CityInfo.buildEmpty(defaultCityName));
+  updateMainCityHtmlEmpty();
   navigator.geolocation.getCurrentPosition(mainCityFillFromCurrent,
       mainCityFillFromDefault);
 }
