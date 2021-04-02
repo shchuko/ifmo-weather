@@ -1,6 +1,6 @@
 # ifmo-weather
 
-Hosted [here](https://shchuko.github.io/ifmo-weather/)
+The backend sources are [here](https://github.com/shchuko/ifmo-weather-rest)
 
 ## Screenshots
 
