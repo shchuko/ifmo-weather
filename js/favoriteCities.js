@@ -36,7 +36,7 @@ function addFavCity(requestCityName, messageFunc, requestCallback) {
         // Response may be false when the city already exists
         if (response === false) {
             listItem.remove();
-            messageFunc(`'${requestCityName}' already exists!`);
+            
             return;
         }
 
