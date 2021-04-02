@@ -1,19 +1,50 @@
-const apiKey = "5c27a2fcde1f7a149db13d0228f9d05f";
-const requestUrlPrefix = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}&`;
+const serverAddress = "localhost:8076";
+const requestUrlPrefix = `http://${serverAddress}`;
+const weatherCityUrl = `${requestUrlPrefix}/weather/city`;
+const weatherCoordinatesUrl = `${requestUrlPrefix}/weather/coordinates`;
+const favouritesUrl = `${requestUrlPrefix}/favourites`;
 
-async function requestWeatherInfo(requestSuffix) {
-  let url = `${requestUrlPrefix}${requestSuffix}`;
-  let response = await fetch(url);
-  if (response.status === 200) {
-    return await response.json();
-  }
-  throw new Error(`Request errored with status ${response.status}`);
+async function requestWeatherInfoByName(cityName) {
+    let response = await fetch(`${weatherCityUrl}?q=${cityName}`);
+    if (response.status === 200) {
+        return await response.json();
+    }
+    throw new Error(`Request errored with status ${response.status}`);
 }
 
-async function requestWeatherInfoFromName(cityName) {
-  return requestWeatherInfo(`q=${cityName}`);
+async function requestWeatherInfoByLocation(lat, lon) {
+    let response = await fetch(`${weatherCoordinatesUrl}?lat=${lat}&long=${lon}`);
+    if (response.status === 200) {
+        return await response.json();
+    }
+    throw new Error(`Request errored with status ${response.status}`);
 }
 
-async function requestWeatherInfoFromLocation(lat, lon) {
-  return requestWeatherInfo(`lat=${lat}&lon=${lon}`);
+async function requestGetFavourites() {
+    let response = await fetch(favouritesUrl);
+    if (response.status === 200) {
+        const json = await response.json();
+        return json.favouriteCitiesNames;
+    }
+    throw new Error(`Request errored with status ${response.status}`);
+}
+
+async function requestAddFavouriteCity(cityName) {
+    let response = await fetch(`${favouritesUrl}?q=${cityName}`, {method: "POST"});
+    if (response.status === 200) {
+        return await response.json();
+    }
+
+    if (response.status === 409) {
+        return false;
+    }
+
+    throw new Error(`Request errored with status ${response.status}`);
+}
+
+async function requestDeleteFavouriteCity(cityName) {
+    let response = await fetch(`${favouritesUrl}?q=${cityName}`, {method: "DELETE"});
+    if (response.status !== 200) {
+        throw new Error(`Request errored with status ${response.status}`);
+    }
 }

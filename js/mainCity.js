@@ -1,63 +1,62 @@
-const defaultCityName = 'Helsinki';
+const defaultCityName = "Helsinki";
 
 function updateMainCityHtml(cityInfo, headerText) {
-  const getElem = (elem) => document.getElementById(elem);
-  const metricHtml = cityInfo.getMetricHtml();
+    const getElem = (elem) => document.getElementById(elem);
+    const metricHtml = cityInfo.getMetricHtml();
 
-  getElem('main-header').innerText = headerText;
-  getElem('main-city-name').innerHTML = metricHtml.nameHtml;
-  getElem('main-weather-icon').src = cityInfo.iconSrc;
-  getElem('main-city-temperature').innerHTML = metricHtml.temperatureHtml;
-  getElem('main-city-wind').innerHTML = metricHtml.windHtml;
-  getElem('main-city-clouds').innerHTML = metricHtml.cloudinessHtml;
-  getElem('main-city-pressure').innerHTML = metricHtml.pressureHtml;
-  getElem('main-city-humidity').innerHTML = metricHtml.humidityHtml;
-  getElem('main-city-loc').innerHTML = metricHtml.locationHtml;
+    getElem("main-header").innerText = headerText;
+    getElem("main-city-name").innerHTML = metricHtml.nameHtml;
+    getElem("main-weather-icon").src = cityInfo.iconSrc;
+    getElem("main-city-temperature").innerHTML = metricHtml.temperatureHtml;
+    getElem("main-city-wind").innerHTML = metricHtml.windHtml;
+    getElem("main-city-clouds").innerHTML = metricHtml.cloudinessHtml;
+    getElem("main-city-pressure").innerHTML = metricHtml.pressureHtml;
+    getElem("main-city-humidity").innerHTML = metricHtml.humidityHtml;
+    getElem("main-city-loc").innerHTML = metricHtml.locationHtml;
 }
 
 function updateMainCityHtmlEmpty() {
-  updateMainCityHtml(CityInfo.buildEmpty('---'), '---');
+    updateMainCityHtml(CityInfo.buildEmpty("---"), "---");
 }
 
 function updateMainCityHtmlDefaultLocation(cityInfo) {
-  updateMainCityHtml(cityInfo, 'Default location');
+    updateMainCityHtml(cityInfo, "Default location");
 }
 
 function updateMainCityHtmlAutoLocation(cityInfo) {
-  updateMainCityHtml(cityInfo, 'Weather here');
+    updateMainCityHtml(cityInfo, "Weather here");
 }
 
 function mainCityFillFromCurrent(pos) {
-  const lat = pos.coords.latitude;
-  const lon = pos.coords.longitude;
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
 
-  let onSuccess = (response) => {
-    updateMainCityHtmlAutoLocation(CityInfo.buildFromResponse(response));
-  };
+    let onSuccess = (response) => {
+        updateMainCityHtmlAutoLocation(CityInfo.buildFromResponse(response));
+    };
 
-  let onFail = (e) => {
-    console.log(e);
-    mainCityFillFromDefault();
-  };
+    let onFail = (e) => {
+        console.log(e);
+        mainCityFillFromDefault();
+    };
 
-  requestWeatherInfoFromLocation(lat, lon).then(onSuccess).catch(onFail);
+    requestWeatherInfoByLocation(lat, lon).then(onSuccess).catch(onFail);
 }
 
 function mainCityFillFromDefault() {
-  let onSuccess = (response) => {
-    updateMainCityHtmlDefaultLocation(CityInfo.buildFromResponse(response));
-  };
+    let onSuccess = (response) => {
+        updateMainCityHtmlDefaultLocation(CityInfo.buildFromResponse(response));
+    };
 
-  let onFail = (e) => {
-    console.log(e);
-    updateMainCityHtmlEmpty();
-  };
+    let onFail = (e) => {
+        console.log(e);
+        updateMainCityHtmlEmpty();
+    };
 
-  requestWeatherInfoFromName(defaultCityName).then(onSuccess).catch(onFail)
+    requestWeatherInfoByName(defaultCityName).then(onSuccess).catch(onFail);
 }
 
 function refreshLocationListener() {
-  updateMainCityHtmlEmpty();
-  navigator.geolocation.getCurrentPosition(mainCityFillFromCurrent,
-      mainCityFillFromDefault);
+    updateMainCityHtmlEmpty();
+    navigator.geolocation.getCurrentPosition(mainCityFillFromCurrent, mainCityFillFromDefault);
 }

@@ -1,108 +1,106 @@
 class CityInfo {
-  name;
-  temperature;
-  iconSrc;
-  windSpeed;
-  windDirection;
-  cloudiness;
-  pressure;
-  humidity;
-  locationLat;
-  locationLon;
+    name;
+    temperature;
+    iconSrc;
+    windSpeed;
+    windDirection;
+    cloudiness;
+    pressure;
+    humidity;
+    locationLat;
+    locationLon;
 
-  getMetricHtml() {
-    return new CityInfoMetricHtml(this);
-  }
+    getMetricHtml() {
+        return new CityInfoMetricHtml(this);
+    }
 
-  static buildFromResponse(response) {
-    let city = new CityInfo();
+    static buildFromResponse(response) {
+        let city = new CityInfo();
 
-    city.name = response.name;
-    city.temperature = Math.round(response.main.temp);
-    city.iconSrc = `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`;
-    city.windSpeed = response.wind.speed;
-    city.windDirection = CityInfo.convertWindDirection(response.wind.deg);
-    // Set to Upper first character of 'cloudiness'
-    city.cloudiness = response.weather[0].description.charAt(0).toUpperCase()
-        + response.weather[0].description.slice(1);
-    city.pressure = response.main.pressure;
-    city.humidity = response.main.humidity;
-    city.locationLat = response.coord.lat;
-    city.locationLon = response.coord.lon;
+        city.name = response.name;
+        city.temperature = response.temperature;
+        city.iconSrc = response.iconSrc;
+        city.windSpeed = response.windSpeed;
+        city.windDirection = response.windDirection;
+        city.cloudiness = response.cloudiness;
+        city.pressure = response.pressure;
+        city.humidity = response.humidity;
+        city.locationLat = response.locationLat;
+        city.locationLon = response.locationLon;
 
-    return city;
-  }
+        return city;
+    }
 
-  static buildEmpty(cityName) {
-    let city = new CityInfo();
+    static buildEmpty(cityName) {
+        let city = new CityInfo();
 
-    city.name = cityName;
-    city.temperature = "-";
-    city.iconSrc = `resources/refresh.png`;
-    city.windSpeed = "-";
-    city.windDirection = "-";
-    city.cloudiness = "-";
-    city.pressure = "-";
-    city.humidity = "-";
-    city.locationLat = "-";
-    city.locationLon = "-";
+        city.name = cityName;
+        city.temperature = "-";
+        city.iconSrc = `resources/refresh.png`;
+        city.windSpeed = "-";
+        city.windDirection = "-";
+        city.cloudiness = "-";
+        city.pressure = "-";
+        city.humidity = "-";
+        city.locationLat = "-";
+        city.locationLon = "-";
 
-    return city;
-  }
+        return city;
+    }
 
-  static convertWindDirection(deg) {
-    if (deg > 337.5) {
-      return 'N';
+    static convertWindDirection(deg) {
+        if (deg > 337.5) {
+            return "N";
+        }
+        if (deg > 292.5) {
+            return "NW";
+        }
+        if (deg > 247.5) {
+            return "W";
+        }
+        if (deg > 202.5) {
+            return "SW";
+        }
+        if (deg > 157.5) {
+            return "S";
+        }
+        if (deg > 122.5) {
+            return "SE";
+        }
+        if (deg > 67.5) {
+            return "E";
+        }
+        if (deg > 22.5) {
+            return "NE";
+        }
+        return "N";
     }
-    if (deg > 292.5) {
-      return 'NW';
-    }
-    if (deg > 247.5) {
-      return 'W';
-    }
-    if (deg > 202.5) {
-      return 'SW';
-    }
-    if (deg > 157.5) {
-      return 'S';
-    }
-    if (deg > 122.5) {
-      return 'SE';
-    }
-    if (deg > 67.5) {
-      return 'E';
-    }
-    if (deg > 22.5) {
-      return 'NE';
-    }
-    return 'N';
-  }
 }
 
 class CityInfoHtml {
-  nameHtml;
-  temperatureHtml;
-  windHtml;
-  cloudinessHtml;
-  pressureHtml;
-  humidityHtml;
-  locationHtml;
-  locationLon;
+    nameHtml;
+    temperatureHtml;
+    windHtml;
+    cloudinessHtml;
+    pressureHtml;
+    humidityHtml;
+    locationHtml;
+    locationLon;
 
-  constructor() {
+    constructor() {
 
-  }
+    }
 }
 
 class CityInfoMetricHtml extends CityInfoHtml {
-  constructor(cityInfo) {
-    super();
-    this.nameHtml = cityInfo.name;
-    this.temperatureHtml = `${cityInfo.temperature}&#176;C`;
-    this.windHtml = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
-    this.cloudinessHtml = cityInfo.cloudiness;
-    this.pressureHtml = `${cityInfo.pressure}hPa`;
-    this.humidityHtml = `${cityInfo.humidity}%`;
-    this.locationHtml = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
-  }
+    constructor(cityInfo) {
+        super();
+        this.nameHtml = cityInfo.name;
+        this.temperatureHtml = `${cityInfo.temperature}&#176;C`;
+        this.windHtml = `${cityInfo.windSpeed} m/s, ${cityInfo.windDirection}`;
+        this.cloudinessHtml = cityInfo.cloudiness;
+        this.pressureHtml = `${cityInfo.pressure}hPa`;
+        this.humidityHtml = `${cityInfo.humidity}%`;
+        this.locationHtml = `[${cityInfo.locationLat}, ${cityInfo.locationLon}]`;
+    }
 }

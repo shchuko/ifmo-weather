@@ -1,108 +1,82 @@
-let displayedFavorites = [];
-let displayedFavsLoading = [];
-
-function isCityDisplayed(cityName) {
-  return displayedFavorites.includes(cityName);
-}
-
-function isCityDisplayedLoading(cityName) {
-  return displayedFavsLoading.includes(cityName);
-}
-
-function saveCityToFavorites(cityName) {
-  if (isCityInFavorites(cityName)) {
-    return;
-  }
-
-  favorites.push(cityName);
-  updateLocalStorage();
-}
-
 function fillFavCityListItem(listItem, cityInfo) {
-  const getField = (tag) => listItem.querySelectorAll(tag)[0];
-  const metricHtml = cityInfo.getMetricHtml();
+    const getField = (tag) => listItem.querySelectorAll(tag)[0];
+    const metricHtml = cityInfo.getMetricHtml();
 
-  getField('h3').innerText = metricHtml.nameHtml;
-  getField('.temperature').innerHTML = metricHtml.temperatureHtml;
-  getField('.weather-icon').src = cityInfo.iconSrc;
-  getField('.btn-remove').addEventListener('click',
-      () => removeFavCityListener(cityInfo.name, listItem));
-  getField('.info-value.wind').innerHTML = metricHtml.windHtml;
-  getField('.info-value.cloudiness').innerHTML = metricHtml.cloudinessHtml;
-  getField('.info-value.pressure').innerHTML = metricHtml.pressureHtml;
-  getField('.info-value.humidity').innerHTML = metricHtml.humidityHtml;
-  getField('.info-value.location').innerHTML = metricHtml.locationHtml;
+    getField("h3").innerText = metricHtml.nameHtml;
+    getField(".temperature").innerHTML = metricHtml.temperatureHtml;
+    getField(".weather-icon").src = cityInfo.iconSrc;
+    getField(".btn-remove").addEventListener("click",
+        () => removeFavCityListener(cityInfo.name, listItem));
+    getField(".info-value.wind").innerHTML = metricHtml.windHtml;
+    getField(".info-value.cloudiness").innerHTML = metricHtml.cloudinessHtml;
+    getField(".info-value.pressure").innerHTML = metricHtml.pressureHtml;
+    getField(".info-value.humidity").innerHTML = metricHtml.humidityHtml;
+    getField(".info-value.location").innerHTML = metricHtml.locationHtml;
 }
 
 function createFavCityListItem(cityName, cityInfo) {
-  let listItem = document.createElement("li");
-  listItem.className = 'fav-city';
-  listItem.append(
-      document.getElementById('fav-city-template').content.cloneNode(
-          true));
-  fillFavCityListItem(listItem, cityInfo);
-  return listItem;
+    let listItem = document.createElement("li");
+    listItem.className = "fav-city";
+    listItem.append(
+        document.getElementById("fav-city-template").content.cloneNode(
+            true));
+    fillFavCityListItem(listItem, cityInfo);
+    return listItem;
 }
 
-function insertFavCityListItem(listItem, cityName) {
-  document.getElementById('fav-cities').prepend(listItem);
-  displayedFavsLoading.push(cityName);
+function insertFavCityListItem(listItem) {
+    document.getElementById("fav-cities").prepend(listItem);
 }
 
-function addFavCity(requestCityName, messageFunc) {
-  if (isCityDisplayed(requestCityName) || isCityDisplayedLoading(
-      requestCityName)) {
-    return;
-  }
-  let listItem = createFavCityListItem(requestCityName,
-      CityInfo.buildEmpty(requestCityName));
-  insertFavCityListItem(listItem, requestCityName);
+function addFavCity(requestCityName, messageFunc, requestCallback) {
+    let listItem = createFavCityListItem(requestCityName, CityInfo.buildEmpty(requestCityName));
+    insertFavCityListItem(listItem);
 
-  let onSuccess = (response) => {
-    let cityInfo = CityInfo.buildFromResponse(response);
-    // Double-check for case when name from response != name from request
-    if (isCityDisplayed(cityInfo.name)) {
-      removeFromList(displayedFavsLoading, requestCityName);
-      listItem.remove();
-    } else {
-      fillFavCityListItem(listItem, cityInfo);
-      saveCityToFavorites(cityInfo.name);
+    let onSuccess = (response) => {
+        // Response may be false when the city already exists
+        if (response === false) {
+            listItem.remove();
+            messageFunc(`'${requestCityName}' already exists!`);
+            return;
+        }
 
-      removeFromList(displayedFavsLoading, requestCityName);
-      displayedFavorites.push(cityInfo.name);
-    }
-  };
+        fillFavCityListItem(listItem, CityInfo.buildFromResponse(response));
+    };
 
-  let onFail = (e) => {
-    console.log(e)
-    listItem.remove();
-    removeFromList(displayedFavsLoading, requestCityName);
-    messageFunc(`'${requestCityName}' adding error!`);
-  };
-  requestWeatherInfoFromName(requestCityName).then(onSuccess).catch(onFail);
+    let onFail = (e) => {
+        console.log(e);
+        listItem.remove();
+        messageFunc(`'${requestCityName}' adding error!`);
+    };
+
+    requestCallback(requestCityName).then(onSuccess).catch(onFail);
 }
 
 function addFavCityListener() {
-  const input = document.getElementById('add-city-input');
-  const value = input.value.trim();
-  input.value = '';
-  if (value !== '') {
-    addFavCity(value, alert);
-  }
+    const input = document.getElementById("add-city-input");
+    const value = input.value.trim();
+    input.value = "";
+    if (value !== "") {
+        addFavCity(value, alert, requestAddFavouriteCity);
+    }
 }
 
 function addFavCityKeyPressListener() {
-  document.getElementById('add-city-input').addEventListener('keypress',
-      function (e) {
-        if (e.key === 'Enter') {
-          addFavCityListener();
-        }
-      });
+    document.getElementById("add-city-input").addEventListener("keypress",
+        function (e) {
+            if (e.key === "Enter") {
+                addFavCityListener();
+            }
+        });
 }
 
 function removeFavCityListener(cityName, listElement) {
-  listElement.remove();
-  removeFromList(favorites, cityName);
-  removeFromList(displayedFavorites, cityName);
-  updateLocalStorage();
+    const onSuccess = () => {
+        listElement.remove();
+    };
+
+    const onFail = (e) => {
+        console.log(e);
+    };
+    requestDeleteFavouriteCity(cityName).then(onSuccess).catch(onFail);
 }
