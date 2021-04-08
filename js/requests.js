@@ -1,5 +1,4 @@
-const serverAddress = "localhost:8076";
-const requestUrlPrefix = `http://${serverAddress}`;
+const requestUrlPrefix = `http://ifmo-weather-rest.us-east-2.elasticbeanstalk.com`;
 const weatherCityUrl = `${requestUrlPrefix}/weather/city`;
 const weatherCoordinatesUrl = `${requestUrlPrefix}/weather/coordinates`;
 const favouritesUrl = `${requestUrlPrefix}/favourites`;
