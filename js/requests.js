@@ -1,4 +1,4 @@
-const requestUrlPrefix = `http://ifmo-weather-rest.us-east-2.elasticbeanstalk.com`;
+const requestUrlPrefix = `https://ifmo-weather-rest.herokuapp.com`;
 const weatherCityUrl = `${requestUrlPrefix}/weather/city`;
 const weatherCoordinatesUrl = `${requestUrlPrefix}/weather/coordinates`;
 const favouritesUrl = `${requestUrlPrefix}/favourites`;
