@@ -30,7 +30,7 @@ async function requestGetFavourites() {
 
 async function requestAddFavouriteCity(cityName) {
     let response = await fetch(`${favouritesUrl}?q=${cityName}`, {method: "POST"});
-    if (response.status === 200) {
+    if (response.status === 201) {
         return await response.json();
     }
 
