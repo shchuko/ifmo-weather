@@ -1,12 +1,13 @@
-function fillFavCityListItem(listItem, cityInfo) {
+function fillFavCityListItem(listItem, cityInfo, addEventListener = false) {
     const getField = (tag) => listItem.querySelectorAll(tag)[0];
     const metricHtml = cityInfo.getMetricHtml();
 
     getField("h3").innerText = metricHtml.nameHtml;
     getField(".temperature").innerHTML = metricHtml.temperatureHtml;
     getField(".weather-icon").src = cityInfo.iconSrc;
-    getField(".btn-remove").addEventListener("click",
-        () => removeFavCityListener(cityInfo.name, listItem));
+    if (addEventListener) {
+        getField(".btn-remove").addEventListener("click", () => removeFavCityListener(cityInfo.name, listItem));
+    }
     getField(".info-value.wind").innerHTML = metricHtml.windHtml;
     getField(".info-value.cloudiness").innerHTML = metricHtml.cloudinessHtml;
     getField(".info-value.pressure").innerHTML = metricHtml.pressureHtml;
@@ -36,11 +37,11 @@ function addFavCity(requestCityName, messageFunc, requestCallback) {
         // Response may be false when the city already exists
         if (response === false) {
             listItem.remove();
-            
+
             return;
         }
 
-        fillFavCityListItem(listItem, CityInfo.buildFromResponse(response));
+        fillFavCityListItem(listItem, CityInfo.buildFromResponse(response), true);
     };
 
     let onFail = (e) => {
