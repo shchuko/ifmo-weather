@@ -18,15 +18,16 @@ function saveCityToFavorites(cityName) {
   updateLocalStorage();
 }
 
-function fillFavCityListItem(listItem, cityInfo) {
+function fillFavCityListItem(listItem, cityInfo, addEventListener = false) {
   const getField = (tag) => listItem.querySelectorAll(tag)[0];
   const metricHtml = cityInfo.getMetricHtml();
 
   getField('h3').innerText = metricHtml.nameHtml;
   getField('.temperature').innerHTML = metricHtml.temperatureHtml;
   getField('.weather-icon').src = cityInfo.iconSrc;
-  getField('.btn-remove').addEventListener('click',
-      () => removeFavCityListener(cityInfo.name, listItem));
+  if (addEventListener) {
+    getField(".btn-remove").addEventListener("click", () => removeFavCityListener(cityInfo.name, listItem));
+  }
   getField('.info-value.wind').innerHTML = metricHtml.windHtml;
   getField('.info-value.cloudiness').innerHTML = metricHtml.cloudinessHtml;
   getField('.info-value.pressure').innerHTML = metricHtml.pressureHtml;
@@ -65,7 +66,7 @@ function addFavCity(requestCityName, messageFunc) {
       removeFromList(displayedFavsLoading, requestCityName);
       listItem.remove();
     } else {
-      fillFavCityListItem(listItem, cityInfo);
+      fillFavCityListItem(listItem, cityInfo, true);
       saveCityToFavorites(cityInfo.name);
 
       removeFromList(displayedFavsLoading, requestCityName);
